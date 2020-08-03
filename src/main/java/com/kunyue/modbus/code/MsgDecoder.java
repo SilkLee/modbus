@@ -8,6 +8,7 @@ import com.kunyue.modbus.vo.PackageData.MsgHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public class MsgDecoder {
     private static final Logger log = LoggerFactory.getLogger(MsgDecoder.class);
 
-    private BitOperator bitOperator;
+    private final BitOperator bitOperator;
 
     public MsgDecoder() {
         this.bitOperator = new BitOperator();
@@ -82,8 +83,11 @@ public class MsgDecoder {
         msgHeader.setFlag(flag);
 
         // 3、CMD[2] 传感器cmd
-        int cmd = Bytes.hashCode(data[2]);
-        msgHeader.setCmd(cmd);
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] == 64 || data[i] == -128) {
+                msgHeader.setCmd(Bytes.hashCode(data[i + 1]));
+            }
+        }
 
         // 4、LEN_LOW[3] LEN_HI[4] 数据长度，小端法
         int index = Bytes.indexOf(data, (byte) 0xff);
@@ -107,7 +111,7 @@ public class MsgDecoder {
         try {
             byte[] bytes = new byte[length];
             System.arraycopy(data, startIndex, bytes, 0, length);
-            return new String(bytes, "UTF-8");
+            return new String(bytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error("解析字符串出错：{}", e.getMessage());
             e.printStackTrace();

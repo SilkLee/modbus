@@ -13,7 +13,7 @@ import java.util.Arrays;
 public enum CmdTypeEnum {
 
     SensorReady(0x55, "传感器准备好"),
-    ReadfromSensorInfo(0x01,"读取传感器基本信息"),
+    ReadfromSensorInfo(0x01, "读取传感器基本信息"),
     SensorSleepy(0x0a, "传感器进入休眠状态"),
     ModifySensorAddr(0x08, "修改传感器地址"),
     ReadAcceleration(0x11, "读取加速度值"),

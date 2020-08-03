@@ -1,17 +1,12 @@
 package com.kunyue.modbus.vo;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 
 /**
  * @Description:
  * @Author: silklee
  * @Date: 2020/8/3 9:47
  */
-@Getter
-@Setter
 @Data
 public class PackageData {
 
@@ -23,8 +18,31 @@ public class PackageData {
     // CRC[19] CRC校验
     private int checkSum;
 
-    @Getter
-    @Setter
+    public MsgHeader getMsgHeader() {
+        return msgHeader;
+    }
+
+    public void setMsgHeader(MsgHeader msgHeader) {
+        this.msgHeader = msgHeader;
+    }
+
+    public byte[] getMsgBodyBytes() {
+        return msgBodyBytes;
+    }
+
+    public void setMsgBodyBytes(byte[] msgBodyBytes) {
+        this.msgBodyBytes = msgBodyBytes;
+    }
+
+    public int getCheckSum() {
+        return checkSum;
+    }
+
+    public void setCheckSum(int checkSum) {
+        this.checkSum = checkSum;
+    }
+
+    @Data
     public static class MsgHeader {
         // ADDR[0] 传感器地址
         private int addr;
@@ -38,7 +56,6 @@ public class PackageData {
         // LEN_LOW[3] LEN_HI[4] 数据长度，小端法
         private int len_low;
         private int len_hi;
-
     }
 
 }

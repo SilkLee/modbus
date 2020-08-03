@@ -8,7 +8,6 @@ import com.kunyue.modbus.vo.PackageData;
 import com.kunyue.modbus.vo.PackageData.MsgHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,12 +16,11 @@ import java.util.List;
  * @Author: silklee
  * @Date: 2020/8/2 10:25
  */
-@Service
 public class SensorReadyJudge<T> implements Strategy<String> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
-    public String execute(PackageData packageData, String pack) {
+    public String execute(PackageData packageData) {
         MsgHeader msgHeader = packageData.getMsgHeader();
         logger.info(">>>>>[终端心跳],deviceaddr={}", msgHeader.getAddr());
         String str = null;

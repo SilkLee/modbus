@@ -1,6 +1,7 @@
 package com.kunyue.modbus.core.strategy;
 
 import com.kunyue.modbus.constant.CmdTypeEnum;
+import com.kunyue.modbus.core.strategy.impl.ReadAcceleration;
 import com.kunyue.modbus.core.strategy.impl.ReadSensorInfo;
 import com.kunyue.modbus.core.strategy.impl.SensorReadyJudge;
 
@@ -34,6 +35,7 @@ public class StrategyFactory {
     static {
         map.put(CmdTypeEnum.ReadfromSensorInfo, new ReadSensorInfo());
         map.put(CmdTypeEnum.SensorReady, new SensorReadyJudge());
+        map.put(CmdTypeEnum.ReadAcceleration, new ReadAcceleration());
     }
 
     public static StrategyFactory getInstance() {
